@@ -38,7 +38,7 @@ def compare_schemas(current_schema, old_schema):
     diff = DeepDiff(current_schema, old_schema, ignore_order=True)
     return diff
 
-def save_differences_to_file(differences, filename):
+def save_to_file(differences, filename):
     with open(filename, 'w') as file:
         file.write(json.dumps(differences, indent=4))
 
@@ -49,10 +49,13 @@ current_schema = fetch_schema(current_url)
 old_schema = fetch_old_schema(old_url)
 
 if current_schema and old_schema:
+    print("Schemas retrieved successfully. Saving to file...")
+    save_to_file(current_schema, 'current_schema.json')
+    save_to_file(old_schema, 'old_schema.json')
     differences = compare_schemas(current_schema, old_schema)
     if differences:
         print("Differences found. Saving to file...")
-        save_differences_to_file(differences, 'schema_differences.json')
+        save_to_file(differences, 'schema_differences.json')
         print("Differences saved to schema_differences.json")
     else:
         print("The schemas are identical.")

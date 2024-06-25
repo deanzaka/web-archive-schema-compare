@@ -3,3 +3,5 @@ venv/
 
 # Output files
 schema_differences.json
+current_schema.json
+old_schema.json
