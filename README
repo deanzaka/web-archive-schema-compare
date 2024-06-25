@@ -1,6 +1,6 @@
-# Project Title
+# Web Archive Schema Compare
 
-Brief description of what the project does.
+A simple python script to compare current site with old state of a site with waybackmachine.
 
 ## Setup
 
@@ -16,8 +16,8 @@ To get started with this project, follow these steps:
 1. Clone the repository to your local machine:
 
 ```sh
-git clone <repository-url>
-cd <repository-directory>
+git clone git@github.com:deanzaka/web-archive-schema-compare.git
+cd web-archive-schema-compare
 ```
 
 2. Create a virtual environment:
