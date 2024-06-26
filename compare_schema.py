@@ -42,16 +42,20 @@ def save_to_file(differences, filename):
     with open(filename, 'w') as file:
         file.write(json.dumps(differences, indent=4))
 
-current_url = 'https://yourcurrentwebsite.com'
-old_url = 'https://web.archive.org/web/20220101010101/http://youroldwebsite.com'
+current_url = 'https://www.taskade.com/404'
+old_url = 'https://www.taskade.com/500'
 
 current_schema = fetch_schema(current_url)
 old_schema = fetch_old_schema(old_url)
 
-if current_schema and old_schema:
-    print("Schemas retrieved successfully. Saving to file...")
+if current_schema:
+    print("Current schema retrieved successfully. Saving to file...")
     save_to_file(current_schema, 'current_schema.json')
+if old_schema:
+    print("Old schema retrieved successfully. Saving to file...")
     save_to_file(old_schema, 'old_schema.json')
+
+if current_schema and old_schema:
     differences = compare_schemas(current_schema, old_schema)
     if differences:
         print("Differences found. Saving to file...")
@@ -60,4 +64,7 @@ if current_schema and old_schema:
     else:
         print("The schemas are identical.")
 else:
-    print("One of the schemas could not be retrieved.")
+    if not current_schema:
+        print("The current schema could not be retrieved.")
+    if not old_schema:
+        print("The old schema could not be retrieved.")
