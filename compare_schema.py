@@ -1,3 +1,4 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -49,15 +50,27 @@ current_schema = fetch_schema(current_url)
 old_schema = fetch_old_schema(old_url)
 
 if current_schema:
+    try:
+        os.remove('current_schema.json')
+    except FileNotFoundError:
+        pass
     print("Current schema retrieved successfully. Saving to file...")
     save_to_file(current_schema, 'current_schema.json')
 if old_schema:
+    try:
+        os.remove('old_schema.json')
+    except FileNotFoundError:
+        pass
     print("Old schema retrieved successfully. Saving to file...")
     save_to_file(old_schema, 'old_schema.json')
 
 if current_schema and old_schema:
     differences = compare_schemas(current_schema, old_schema)
     if differences:
+        try:
+            os.remove('schema_differences.json')
+        except FileNotFoundError:
+            pass
         print("Differences found. Saving to file...")
         save_to_file(differences, 'schema_differences.json')
         print("Differences saved to schema_differences.json")
